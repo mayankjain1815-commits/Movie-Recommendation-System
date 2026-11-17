@@ -11,15 +11,15 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 # loading the dataset and the trained model
 try:
-    clf = pickle.load(open("./Artifacts\nlp_model.pkl", 'rb'))
-    vectorizer = pickle.load(open("./Artifacts\tranform.pkl",'rb'))
+    clf = pickle.load(open("./Artifacts/nlp_model.pkl", 'rb'))
+    vectorizer = pickle.load(open("./Artifacts/tranform.pkl",'rb'))
 except:
     print("Error in loading Artifacts")
 
 # creating a similarity matrix using count vectorizer and cosine similarity
 def create_similarity():
     try:
-        data = pd.read_csv(r"C:\Users\KALYAN\Desktop\Projects\Movie Recommendation System\Artifacts\main_data.csv")
+        data = pd.read_csv("./Artifacts/main_data.csv")
         cv = CountVectorizer()
         count_matrix = cv.fit_transform(data['comb']) 
         similarity = cosine_similarity(count_matrix)
@@ -55,7 +55,7 @@ def convert_to_list(my_list):
     return my_list
 
 def get_suggestions():
-    data = pd.read_csv('main_data.csv')
+    data = pd.read_csv('./Artifacts/main_data.csv')
     return list(data['movie_title'].str.capitalize())
 
 app = Flask(__name__)
