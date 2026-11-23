@@ -20,6 +20,7 @@ except:
 def create_similarity():
     try:
         data = pd.read_csv("./Artifacts/main_data.csv")
+        data['movie_title'] = data['movie_title'].str.strip()
         cv = CountVectorizer()
         count_matrix = cv.fit_transform(data['comb']) 
         similarity = cosine_similarity(count_matrix)
@@ -28,7 +29,7 @@ def create_similarity():
         print(e)
 
 def rcmd(m):
-    m = m.lower()
+    m = m.lower().strip()
     try:
         data.head()
         similarity.shape 
@@ -56,7 +57,7 @@ def convert_to_list(my_list):
 
 def get_suggestions():
     data = pd.read_csv('./Artifacts/main_data.csv')
-    return list(data['movie_title'].str.capitalize())
+    return list(data['movie_title'].str.strip().str.capitalize())
 
 app = Flask(__name__)
 
